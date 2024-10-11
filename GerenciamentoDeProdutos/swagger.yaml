@@ -1,0 +1,89 @@
+swagger: "2.0"
+info:
+  title: API de Produtos
+  description: API para gerenciar o catálogo de produtos
+  version: 1.0.0
+host: localhost:8000
+basePath: /api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /produtos/:
+    get:
+      summary: Lista de produtos
+      description: Retorna a lista de produtos com paginação e filtragem por nome e categoria
+      parameters:
+        - in: query
+          name: page
+          description: Número da página
+          required: false
+          type: integer
+        - in: query
+          name: nome
+          description: Nome do produto
+          required: false
+          type: string
+        - in: query
+          name: categoria
+          description: Categoria do produto
+          required: false
+          type: string
+      responses:
+        200:
+          description: Lista de produtos
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Produto'
+    post:
+      summary: Cria um novo produto
+      description: Cria um novo produto
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: produto
+          description: Dados do produto
+          required: true
+          schema:
+            $ref: '#/definitions/Produto'
+      responses:
+        201:
+          description: Produto criado com sucesso
+          schema:
+            $ref: '#/definitions/Produto'
+  /produtos/{id}/:
+    get:
+      summary: Detalhes do produto
+      description: Retorna os detalhes do produto
+      parameters:
+        - in: path
+          name: id
+          description: ID do produto
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Detalhes do produto  
+          schema:
+            $ref: '#/definitions/Produto'
+    put:
+      summary: Atualiza o produto
+      description: Atualiza o produto
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: ID do produto
+          required: true
+          type: integer
+        - in: body
+          name: produto
+          description: Dados do produto
+          required: true
+          schema
